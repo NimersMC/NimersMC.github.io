@@ -1,507 +1,107 @@
-
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NimersMC Store</title>
-
   <style>
-    :root {
-      --bg: #08120d;
-      --panel: #102017;
-      --panel-2: #152b1d;
-      --green: #48d66a;
-      --green-dark: #23883c;
-      --text: #f4fff6;
-      --muted: #aac6b0;
-      --border: #2b5536;
-      --gold: #ffd75a;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        linear-gradient(rgba(8, 18, 13, 0.92), rgba(8, 18, 13, 0.97)),
-        repeating-linear-gradient(
-          45deg,
-          #0b1a10 0,
-          #0b1a10 18px,
-          #0e2114 18px,
-          #0e2114 36px
-        );
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(8, 18, 13, 0.95);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-    }
-
-    .nav-content {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-    }
-
-    .logo span {
-      color: var(--green);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      color: var(--muted);
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--green);
-    }
-
-    .hero {
-      padding: 95px 0 70px;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: #10131a;
       text-align: center;
     }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      background: rgba(72, 214, 106, 0.1);
-      color: var(--green);
-      border-radius: 99px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 18px;
+    header {
+      padding: 70px 20px;
+      background: linear-gradient(135deg, #182b4d, #102018);
     }
-
-    h1 {
-      font-size: clamp(2.5rem, 7vw, 5.3rem);
-      line-height: 0.95;
-      margin-bottom: 20px;
-      letter-spacing: -2px;
-    }
-
-    h1 span {
-      color: var(--green);
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: auto;
-      color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      margin-top: 32px;
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
+    h1 { font-size: 48px; margin: 0; }
+    h2 { margin-top: 0; }
+    p { color: #d7dce5; line-height: 1.6; }
+    .tagline { font-size: 19px; margin: 16px auto 28px; max-width: 620px; }
     .button {
-      padding: 14px 20px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
       display: inline-block;
-    }
-
-    .button-primary {
-      background: var(--green);
-      color: #071109;
-    }
-
-    .button-primary:hover {
-      background: #6cf28c;
-      transform: translateY(-2px);
-    }
-
-    .button-secondary {
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text);
-    }
-
-    .button-secondary:hover {
-      border-color: var(--green);
-    }
-
-    .server-box {
-      margin: 45px auto 0;
-      max-width: 640px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(16, 32, 23, 0.85);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      text-align: left;
-    }
-
-    .server-box small {
-      color: var(--muted);
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .server-ip {
-      color: var(--gold);
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    .copy-button {
-      background: transparent;
-      color: var(--green);
-      border: 1px solid var(--border);
-      padding: 9px 12px;
+      padding: 14px 24px;
+      margin: 8px;
       border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .copy-button:hover {
-      border-color: var(--green);
-    }
-
-    section {
-      padding: 70px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 12px;
-      font-size: 2rem;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 35px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .product {
-      background: linear-gradient(145deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: 0.2s ease;
-    }
-
-    .product:hover {
-      transform: translateY(-6px);
-      border-color: var(--green);
-    }
-
-    .product-icon {
-      height: 115px;
-      display: grid;
-      place-items: center;
-      font-size: 3.2rem;
-      background:
-        linear-gradient(135deg, rgba(72, 214, 106, 0.18), rgba(255,255,255,0.02));
-      border-bottom: 1px solid var(--border);
-    }
-
-    .product-content {
-      padding: 20px;
-    }
-
-    .product h3 {
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-    }
-
-    .product p {
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 0.92rem;
-      min-height: 62px;
-    }
-
-    .price {
-      display: block;
-      color: var(--gold);
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 18px 0 13px;
-    }
-
-    .buy-button {
-      width: 100%;
-      border: 0;
-      padding: 12px;
-      border-radius: 8px;
-      background: var(--green-dark);
+      background: #37b85c;
       color: white;
       font-weight: bold;
-      cursor: pointer;
+      text-decoration: none;
     }
-
-    .buy-button:hover {
-      background: var(--green);
-      color: #071109;
-    }
-
-    .features {
+    .button.secondary { background: #2b67c8; }
+    main { max-width: 1000px; margin: auto; padding: 45px 20px; }
+    .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 18px;
+      margin-top: 25px;
     }
-
-    .feature {
-      background: rgba(16, 32, 23, 0.8);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    .card {
+      background: #1b202b;
+      border: 1px solid #2e3749;
+      border-radius: 12px;
       padding: 24px;
     }
-
-    .feature h3 {
-      margin-bottom: 10px;
-      color: var(--green);
-    }
-
-    .feature p {
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
+    .card p { font-size: 14px; }
     footer {
-      border-top: 1px solid var(--border);
-      padding: 35px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.7;
-    }
-
-    footer strong {
-      color: var(--text);
-    }
-
-    @media (max-width: 850px) {
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav-links {
-        display: none;
-      }
-
-      .products {
-        grid-template-columns: 1fr;
-      }
-
-      .server-box {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      margin-top: 35px;
+      padding: 25px 15px;
+      background: #090b10;
+      font-size: 12px;
     }
   </style>
 </head>
-
 <body>
-  <nav>
-    <div class="container nav-content">
-      <a href="#" class="logo">Nimers<span>MC</span> Store</a>
 
-      <div class="nav-links">
-        <a href="#store">Store</a>
-        <a href="#about">About</a>
-        <a href="#support">Support</a>
-      </div>
-    </div>
-  </nav>
+  <header>
+    <h1>NimersMC Store</h1>
+    <p class="tagline">
+      Support the server, unlock cosmetics and rewards, and help keep NimersMC running.
+    </p>
+
+    <a class="button" href="https://YOUR_TEBEX_STORE.tebex.io" target="_blank">
+      Open Store
+    </a>
+
+    <a class="button secondary" href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank">
+      Join Discord
+    </a>
+  </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <div class="badge">Official NimersMC Server Store</div>
+    <h2>Support NimersMC</h2>
+    <p>All purchases are delivered automatically to your Minecraft account.</p>
 
-        <h1>Level up your <span>NimersMC</span> experience.</h1>
-
-        <p>
-          Support the server and unlock ranks, cosmetics, crate keys,
-          and exclusive in-game rewards.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#store" class="button button-primary">Browse Store</a>
-          <a href="#support" class="button button-secondary">Get Support</a>
-        </div>
-
-        <div class="server-box">
-          <div>
-            <small>SERVER IP</small>
-            <div class="server-ip" id="serverIp">play.nimersmc.net</div>
-          </div>
-
-          <button class="copy-button" onclick="copyServerIp()">Copy IP</button>
-        </div>
+    <div class="cards">
+      <div class="card">
+        <h2>Ranks</h2>
+        <p>Unlock tags, cosmetics, useful commands, and supporter benefits.</p>
       </div>
-    </section>
 
-    <section id="store">
-      <div class="container">
-        <h2 class="section-title">Featured Products</h2>
-        <p class="section-subtitle">Choose an item to support NimersMC.</p>
-
-        <div class="products">
-          <article class="product">
-            <div class="product-icon">⭐</div>
-            <div class="product-content">
-              <h3>VIP Rank</h3>
-              <p>Exclusive chat prefix, special commands, and VIP perks.</p>
-              <span class="price">$4.99</span>
-              <button class="buy-button" onclick="comingSoon('VIP Rank')">Buy VIP</button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product-icon">🔑</div>
-            <div class="product-content">
-              <h3>Crate Keys</h3>
-              <p>Open crates and discover cosmetics, rewards, and surprises.</p>
-              <span class="price">$2.99</span>
-              <button class="buy-button" onclick="comingSoon('Crate Keys')">Buy Keys</button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product-icon">✨</div>
-            <div class="product-content">
-              <h3>Cosmetics</h3>
-              <p>Stand out with particles, pets, tags, and visual effects.</p>
-              <span class="price">$3.99</span>
-              <button class="buy-button" onclick="comingSoon('Cosmetics')">View Cosmetics</button>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="product-icon">🎁</div>
-            <div class="product-content">
-              <h3>Starter Bundle</h3>
-              <p>A great package for new players who want extra benefits.</p>
-              <span class="price">$7.99</span>
-              <button class="buy-button" onclick="comingSoon('Starter Bundle')">Buy Bundle</button>
-            </div>
-          </article>
-        </div>
+      <div class="card">
+        <h2>Crate Keys</h2>
+        <p>Get keys for special crates with fair and exciting rewards.</p>
       </div>
-    </section>
 
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">Why Support NimersMC?</h2>
-        <p class="section-subtitle">Your support helps the server stay online and improve.</p>
-
-        <div class="features">
-          <div class="feature">
-            <h3>⚡ Fast Delivery</h3>
-            <p>Future purchases will be delivered automatically after secure payment confirmation.</p>
-          </div>
-
-          <div class="feature">
-            <h3>🛡️ Safe Store</h3>
-            <p>We will connect the store only to trusted payment and server-delivery systems.</p>
-          </div>
-
-          <div class="feature">
-            <h3>💬 Player Support</h3>
-            <p>Need help with an order? Contact our staff through the official Discord server.</p>
-          </div>
-        </div>
+      <div class="card">
+        <h2>Cosmetics</h2>
+        <p>Show your style with particles, prefixes, tags, and visual rewards.</p>
       </div>
-    </section>
+    </div>
 
-    <section id="support">
-      <div class="container" style="text-align:center;">
-        <h2 class="section-title">Need Support?</h2>
-        <p class="section-subtitle">
-          Join our Discord server for help with purchases, ranks, or account issues.
-        </p>
-
-        <a class="button button-primary" href="https://discord.com/" target="_blank">
-          Join Discord
-        </a>
-      </div>
-    </section>
+    <h2 style="margin-top: 45px;">Server Address</h2>
+    <p><strong>YOUR_SERVER_IP</strong></p>
   </main>
 
   <footer>
-    <div class="container">
-      <p><strong>© 2026 NimersMC Store.</strong> All rights reserved.</p>
-      <p>
-        NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH
-        MOJANG OR MICROSOFT.
-      </p>
-    </div>
+    <p>Need help with a purchase? Contact us through the NimersMC support email.</p>
+    <p>NOT AN OFFICIAL MINECRAFT SERVER. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
   </footer>
 
-  <script>
-    function copyServerIp() {
-      const ip = document.getElementById("serverIp").innerText;
-
-      navigator.clipboard.writeText(ip).then(() => {
-        alert("Server IP copied: " + ip);
-      });
-    }
-
-    function comingSoon(productName) {
-      alert(productName + " checkout is coming soon.");
-    }
-  </script>
 </body>
 </html>
+```
