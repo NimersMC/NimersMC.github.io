@@ -1,146 +1,671 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official NimersMC store — support the server and purchase the + or ++ rank.">
   <title>NimersMC Store</title>
 
   <style>
+    :root {
+      --bg: #080d16;
+      --panel: rgba(17, 27, 43, 0.88);
+      --panel-light: #15243a;
+      --border: rgba(86, 211, 255, 0.22);
+      --cyan: #35d4ff;
+      --blue: #3887ff;
+      --green: #46d369;
+      --gold: #ffc443;
+      --text: #f7fbff;
+      --muted: #afbdd0;
+    }
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      background: #10131a;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(44, 117, 255, 0.20), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(0, 220, 180, 0.15), transparent 28%),
+        var(--bg);
       text-align: center;
     }
 
+    a,
+    button {
+      font: inherit;
+    }
+
     header {
-      padding: 70px 20px;
-      background: linear-gradient(135deg, #182b4d, #102018);
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      padding: 80px 20px 70px;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(rgba(5, 11, 21, 0.42), rgba(5, 11, 21, 0.92)),
+        linear-gradient(135deg, #173864, #071d22 65%, #092a1d);
+      isolation: isolate;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.20;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 34px 34px;
+    }
+
+    .hero {
+      width: min(900px, 100%);
+    }
+
+    .server-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      margin-bottom: 18px;
+      color: #b9f8ff;
+      border: 1px solid rgba(53, 212, 255, .35);
+      border-radius: 999px;
+      background: rgba(5, 19, 32, .62);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .server-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
     }
 
     h1 {
-      font-size: 48px;
       margin: 0;
+      font-size: clamp(48px, 9vw, 88px);
+      line-height: .95;
+      letter-spacing: -0.05em;
+      text-shadow: 0 6px 24px rgba(0, 0, 0, .55);
+    }
+
+    h1 span {
+      color: var(--cyan);
     }
 
     h2 {
-      margin-top: 0;
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 44px);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 30px;
     }
 
     p {
-      color: #d7dce5;
-      line-height: 1.6;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
     .tagline {
+      max-width: 660px;
+      margin: 22px auto 30px;
       font-size: 19px;
-      margin: 16px auto 28px;
-      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .button {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
       padding: 14px 24px;
-      margin: 8px;
-      border-radius: 8px;
-      background: #37b85c;
+      border: 0;
+      border-radius: 9px;
       color: white;
-      font-weight: bold;
+      background: linear-gradient(135deg, #33c75a, #1c9e44);
+      box-shadow: 0 10px 24px rgba(29, 179, 78, .18);
+      cursor: pointer;
+      font-weight: 800;
       text-decoration: none;
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 14px 30px rgba(29, 179, 78, .26);
     }
 
     .button.secondary {
-      background: #2b67c8;
+      background: linear-gradient(135deg, #3f8cff, #295bc0);
+      box-shadow: 0 10px 24px rgba(43, 103, 200, .20);
+    }
+
+    .button.gold {
+      color: #231500;
+      background: linear-gradient(135deg, #ffe075, #ffad22);
+      box-shadow: 0 10px 24px rgba(255, 183, 44, .18);
     }
 
     main {
-      max-width: 1000px;
+      width: min(1080px, 100%);
       margin: auto;
-      padding: 45px 20px;
+      padding: 70px 20px;
+    }
+
+    .section-copy {
+      max-width: 650px;
+      margin: 0 auto 30px;
+    }
+
+    .store {
+      scroll-margin-top: 20px;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-      margin-top: 25px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 30px;
     }
 
     .card {
-      background: #1b202b;
-      border: 1px solid #2e3749;
-      border-radius: 12px;
-      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(160deg, rgba(27, 43, 67, .95), rgba(12, 19, 31, .95));
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .22);
+      text-align: left;
     }
 
-    .card p {
+    .card.featured {
+      border-color: rgba(255, 196, 67, .55);
+      box-shadow: 0 18px 60px rgba(255, 174, 34, .10);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      top: -85px;
+      right: -70px;
+      border-radius: 50%;
+      background: rgba(53, 212, 255, .12);
+      filter: blur(4px);
+    }
+
+    .featured::after {
+      background: rgba(255, 196, 67, .14);
+    }
+
+    .rank-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 16px;
+    }
+
+    .rank-name {
+      color: var(--cyan);
+      font-weight: 900;
+      text-shadow: 0 0 18px rgba(53, 212, 255, .35);
+    }
+
+    .featured .rank-name {
+      color: var(--gold);
+      text-shadow: 0 0 18px rgba(255, 196, 67, .30);
+    }
+
+    .price {
+      color: white;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .benefits {
+      min-height: 112px;
+      margin: 0 0 26px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .benefits li {
+      position: relative;
+      margin: 11px 0;
+      padding-left: 25px;
+      color: #dce7f6;
+      line-height: 1.45;
+    }
+
+    .benefits li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 13px;
+    }
+
+    .featured .benefits li::before {
+      color: var(--gold);
+    }
+
+    .card .button {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .order-note {
+      margin: 22px auto 0;
+      font-size: 14px;
+    }
+
+    .kit-comparison {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin: 28px auto 0;
+      padding: 16px;
+      border: 1px solid rgba(255, 196, 67, .30);
+      border-radius: 14px;
+      background: rgba(255, 196, 67, .06);
+    }
+
+    .kit-option {
+      padding: 13px;
+      border-radius: 10px;
+      color: #e9f1fb;
+      background: rgba(7, 13, 23, .58);
+    }
+
+    .command {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 4px 8px;
+      border: 1px solid #3a506b;
+      border-radius: 6px;
+      color: #bff6ff;
+      background: #080e18;
+      font-family: Consolas, Monaco, monospace;
+      font-weight: 800;
+    }
+
+    .invite-section {
+      margin-top: 78px;
+      scroll-margin-top: 20px;
+    }
+
+    .fair-play {
+      max-width: 900px;
+      margin: 24px auto 30px;
+      padding: 18px 20px;
+      border: 1px solid rgba(70, 211, 105, .36);
+      border-radius: 14px;
+      color: #dfffe7;
+      background: rgba(70, 211, 105, .08);
+      line-height: 1.6;
+    }
+
+    .invite-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .invite-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(160deg, rgba(21, 36, 58, .92), rgba(10, 17, 28, .95));
+      text-align: left;
+    }
+
+    .invite-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .invite-heading h3 {
+      font-size: 24px;
+    }
+
+    .invite-count {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border: 1px solid rgba(53, 212, 255, .28);
+      border-radius: 999px;
+      color: #c9f7ff;
+      background: rgba(53, 212, 255, .08);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .invite-card .benefits {
+      min-height: 0;
+      margin-bottom: 0;
+    }
+
+    .invite-cta {
+      margin-top: 25px;
+    }
+
+    .server-box {
+      margin-top: 70px;
+      padding: 34px 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .22);
+    }
+
+    .ip-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      width: min(650px, 100%);
+      margin: 20px auto 10px;
+    }
+
+    .ip-address {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 330px;
+      min-height: 58px;
+      padding: 12px 20px;
+      border: 1px solid #334761;
+      border-radius: 10px 0 0 10px;
+      color: #c7f6ff;
+      background: #0a111d;
+      font-family: Consolas, Monaco, monospace;
+      font-size: clamp(17px, 4vw, 22px);
+      font-weight: 800;
+      word-break: break-all;
+    }
+
+    .copy-button {
+      min-width: 130px;
+      border: 0;
+      border-radius: 0 10px 10px 0;
+      color: #05131c;
+      background: var(--cyan);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .server-meta {
+      margin-bottom: 0;
       font-size: 14px;
     }
 
     footer {
-      margin-top: 35px;
-      padding: 25px 15px;
-      background: #090b10;
+      margin-top: 10px;
+      padding: 30px 18px;
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      background: #05080e;
       font-size: 12px;
     }
-  </style>
 
+    footer p {
+      margin: 6px auto;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        min-height: 460px;
+        padding-top: 60px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .kit-comparison,
+      .invite-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ip-address,
+      .copy-button {
+        width: 100%;
+        border-radius: 9px;
+      }
+
+      .copy-button {
+        min-height: 48px;
+        margin-top: 8px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
   <header>
-    <h1>NimersMC Store</h1>
+    <div class="hero">
+      <div class="server-badge">Java Server · Cracked + Premium</div>
+      <h1>Nimers<span>MC</span></h1>
+      <p class="tagline">
+        Support NimersMC and unlock exclusive supporter ranks, distinctive tags,
+        and extra in-game benefits.
+      </p>
 
-```
-<p class="tagline">
-  Support the server, unlock cosmetics and rewards, and help keep NimersMC running.
-</p>
-
-<a class="button" href="https://YOUR_TEBEX_STORE.tebex.io" target="_blank">
-  Open Store
-</a>
-
-<a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank">
-  Join Discord
-</a>
-```
-
+      <div class="hero-actions">
+        <a class="button" href="#store">Open Store</a>
+        <a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+          Join Discord
+        </a>
+      </div>
+    </div>
   </header>
 
   <main>
-    <h2>Support NimersMC</h2>
+    <section class="store" id="store">
+      <h2>Choose Your Rank</h2>
+      <p class="section-copy">
+        Select a supporter rank below. Purchases are currently handled through our Discord team.
+      </p>
 
-```
-<p>All purchases are delivered automatically to your Minecraft account.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="rank-top">
+            <h3><span class="rank-name">+</span> Rank</h3>
+            <div class="price">$5</div>
+          </div>
 
-<div class="cards">
-  <div class="card">
-    <h2>Ranks</h2>
-    <p>Unlock tags, cosmetics, useful commands, and supporter benefits.</p>
-  </div>
+          <ul class="benefits">
+            <li>Everything from <strong>Knight</strong> and all lower invite ranks</li>
+            <li><strong>+</strong> Discord role</li>
+            <li><strong>[+]</strong> chat and TAB prefix</li>
+            <li><strong>12 homes</strong></li>
+            <li>6-row Ender Chest — <strong>54 slots</strong></li>
+            <li><strong>16-chunk</strong> view distance</li>
+            <li>Supporter kit every <strong>48 hours</strong> with <span class="command">/kit +</span></li>
+          </ul>
 
-  <div class="card">
-    <h2>Crate Keys</h2>
-    <p>Get keys for special crates with fair and exciting rewards.</p>
-  </div>
+          <a class="button" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+            Buy + Rank
+          </a>
+        </article>
 
-  <div class="card">
-    <h2>Cosmetics</h2>
-    <p>Show your style with particles, prefixes, tags, and visual rewards.</p>
-  </div>
-</div>
+        <article class="card featured">
+          <div class="rank-top">
+            <h3><span class="rank-name">++</span> Rank</h3>
+            <div class="price">$10</div>
+          </div>
 
-<h2 style="margin-top: 45px;">Server Address</h2>
-<p><strong>YOUR_SERVER_IP</strong></p>
-```
+          <ul class="benefits">
+            <li>Everything from <strong>+</strong>, including all free-rank perks</li>
+            <li><strong>++</strong> Discord role</li>
+            <li><strong>[++]</strong> chat and TAB prefix</li>
+            <li><strong>18 homes</strong></li>
+            <li>6-row Ender Chest — <strong>54 slots</strong></li>
+            <li><strong>18-chunk</strong> view distance</li>
+            <li>The same supporter kit every <strong>24 hours</strong> with <span class="command">/kit ++</span></li>
+          </ul>
 
+          <a class="button gold" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+            Buy ++ Rank
+          </a>
+        </article>
+      </div>
+
+      <p class="order-note">
+        After joining Discord, open a purchase ticket and include your exact Minecraft username.
+      </p>
+
+      <div class="kit-comparison" aria-label="Paid rank kit cooldown comparison">
+        <div class="kit-option">
+          <strong>+ Rank Kit</strong><br>
+          <span class="command">/kit +</span> · Every 48 hours
+        </div>
+        <div class="kit-option">
+          <strong>++ Rank Kit</strong><br>
+          <span class="command">/kit ++</span> · Every 24 hours
+        </div>
+      </div>
+
+      <p class="order-note">Both ranks receive the same kit contents; only the cooldown is different.</p>
+    </section>
+
+    <section class="invite-section" id="invite-ranks">
+      <h2>🎁 Free Invite Ranks</h2>
+      <p class="section-copy">
+        Invite friends to the NimersMC Discord and unlock permanent quality-of-life perks for free.
+      </p>
+
+      <div class="fair-play">
+        <strong>⚖️ NimersMC is NOT Pay-to-Win.</strong><br>
+        All invite ranks are cosmetic or quality-of-life only and give no unfair PvP, KOTH, loot, or combat advantage.
+      </div>
+
+      <div class="invite-grid">
+        <article class="invite-card">
+          <div class="invite-heading">
+            <h3>🦸 Hero</h3>
+            <span class="invite-count">2 Invites</span>
+          </div>
+          <ul class="benefits">
+            <li>Hero Discord role</li>
+            <li><strong>[Hero]</strong> chat prefix</li>
+            <li><strong>3 homes</strong></li>
+            <li>3-row Ender Chest — <strong>27 slots</strong></li>
+            <li>Access to <span class="command">/craft</span> and <span class="command">/hat</span></li>
+            <li><strong>8-chunk</strong> view distance</li>
+          </ul>
+        </article>
+
+        <article class="invite-card">
+          <div class="invite-heading">
+            <h3>🏆 Legend</h3>
+            <span class="invite-count">5 Invites</span>
+          </div>
+          <ul class="benefits">
+            <li>Everything from <strong>Hero</strong></li>
+            <li>Legend Discord role</li>
+            <li><strong>[Legend]</strong> chat prefix</li>
+            <li><strong>5 homes</strong></li>
+            <li>4-row Ender Chest — <strong>36 slots</strong></li>
+            <li>Access to <span class="command">/anvil</span></li>
+            <li>Legend chat color</li>
+            <li><strong>10-chunk</strong> view distance</li>
+          </ul>
+        </article>
+
+        <article class="invite-card">
+          <div class="invite-heading">
+            <h3>💎 VIP</h3>
+            <span class="invite-count">10 Invites</span>
+          </div>
+          <ul class="benefits">
+            <li>Everything from <strong>Legend</strong></li>
+            <li>VIP Discord role</li>
+            <li><strong>[VIP]</strong> chat prefix</li>
+            <li><strong>6 homes</strong></li>
+            <li>4-row Ender Chest — <strong>36 slots</strong></li>
+            <li>Access to <span class="command">/enderchest</span> and <span class="command">/ec</span></li>
+            <li>VIP chat color</li>
+            <li><strong>10-chunk</strong> view distance</li>
+          </ul>
+        </article>
+
+        <article class="invite-card">
+          <div class="invite-heading">
+            <h3>⚔️ Knight</h3>
+            <span class="invite-count">15 Invites</span>
+          </div>
+          <ul class="benefits">
+            <li>Everything from <strong>VIP</strong></li>
+            <li>Knight Discord role</li>
+            <li><strong>[Knight]</strong> chat prefix</li>
+            <li><strong>8 homes</strong></li>
+            <li>5-row Ender Chest — <strong>45 slots</strong></li>
+            <li><strong>12-chunk</strong> view distance</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="invite-cta">
+        <a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+          Start Inviting on Discord
+        </a>
+      </div>
+    </section>
+
+    <section class="server-box" aria-labelledby="server-address-title">
+      <h2 id="server-address-title">Join NimersMC</h2>
+      <p>Copy the address and add it to your Minecraft Java server list.</p>
+
+      <div class="ip-row">
+        <div class="ip-address" id="server-ip">nimersmc.usga.me</div>
+        <button class="copy-button" id="copy-ip" type="button">Copy IP</button>
+      </div>
+
+      <p class="server-meta">Java 1.21.11 · Cracked + Premium · Diamond SMP</p>
+    </section>
   </main>
 
   <footer>
@@ -148,5 +673,28 @@
     <p>NOT AN OFFICIAL MINECRAFT SERVER. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
   </footer>
 
+  <script>
+    const copyButton = document.getElementById('copy-ip');
+    const serverAddress = document.getElementById('server-ip').textContent.trim();
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(serverAddress);
+        copyButton.textContent = 'Copied!';
+      } catch {
+        const input = document.createElement('textarea');
+        input.value = serverAddress;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+        copyButton.textContent = 'Copied!';
+      }
+
+      setTimeout(() => {
+        copyButton.textContent = 'Copy IP';
+      }, 1800);
+    });
+  </script>
 </body>
 </html>
