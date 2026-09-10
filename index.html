@@ -499,6 +499,13 @@
     .benefits .orbital-contents { margin: 10px 0 0; padding-left: 24px; list-style: decimal; }
     .benefits .orbital-contents li { padding: 3px 0; border: 0; }
     .benefits .orbital-contents li::before { content: none; }
+  
+    .payment-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin:24px 0; }
+    .payment-badges span { border:1px solid #28536a; border-radius:12px; background:#101d2b; color:#dff8ff; padding:12px 18px; font-weight:700; }
+    .payment-details { max-width:900px; margin:28px auto 0; text-align:left; border-top:1px solid #28536a; padding-top:20px; }
+    .payment-details summary { cursor:pointer; color:#65dfff; font-weight:700; padding:8px 0; }
+    .payment-details a { color:#65dfff; }
+    .payment-method-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px 24px; padding-left:22px; line-height:1.5; }
   </style>
 </head>
 
@@ -513,7 +520,7 @@
       </p>
 
       <div class="hero-actions">
-        <a class="button" href="#store">Open Store</a>
+        <a class="button" href="https://nimersmc.tebex.store/" target="_blank" rel="noopener noreferrer">Open Store</a>
         <a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
           Join Discord
         </a>
@@ -553,7 +560,7 @@
             </li>
           </ul>
 
-          <a class="button" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+          <a class="button" href="https://nimersmc.tebex.store/" target="_blank" rel="noopener noreferrer">
             Buy + Rank
           </a>
           <button class="button secondary kit-preview-button" type="button" data-kit="kit-plus" aria-haspopup="dialog">Open Kit +</button>
@@ -583,7 +590,7 @@
             </li>
           </ul>
 
-          <a class="button gold" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
+          <a class="button gold" href="https://nimersmc.tebex.store/" target="_blank" rel="noopener noreferrer">
             Buy ++ Rank
           </a>
           <button class="button secondary kit-preview-button" type="button" data-kit="kit-plusplus" aria-haspopup="dialog">Open Kit ++</button>
@@ -591,7 +598,7 @@
       </div>
 
       <p class="order-note">
-        After joining Discord, open a purchase ticket and include your exact Minecraft username.
+        Choose your rank on Tebex and enter your exact Minecraft username at checkout. Each paid rank lasts 3 months.
       </p>
 
       <div class="kit-comparison" aria-label="Paid rank kit cooldown comparison">
@@ -612,21 +619,19 @@
 
     <section class="server-box" id="payments" aria-labelledby="payments-title">
       <h2 id="payments-title">Payment Methods</h2>
-      <p>Card payments will open a secure payment-provider checkout. Enter your card details only on that checkout page.</p>
-      <div class="kit-comparison">
-        <div class="kit-option">
-          <strong>+ Rank · $5</strong>
-          <p><a class="button card-checkout" data-rank="plus" hidden>Pay by Card · +</a></p>
-          <p class="checkout-status" data-status="plus">Card checkout is not available yet.</p>
-        </div>
-        <div class="kit-option">
-          <strong>++ Rank · $10</strong>
-          <p><a class="button gold card-checkout" data-rank="plusplus" hidden>Pay by Card · ++</a></p>
-          <p class="checkout-status" data-status="plusplus">Card checkout is not available yet.</p>
-        </div>
+      <p>Complete your purchase securely on Tebex. Card details are entered on Tebex checkout and are not collected by this website.</p>
+      <div class="payment-badges" aria-label="Featured Tebex payment options">
+        <span>Credit &amp; Debit Cards</span><span>PayPal</span><span>Bank Payments</span><span>Digital Wallets</span><span>Regional Payment Options</span>
       </div>
-      <p class="order-note">For now, open a purchase ticket on Discord and include your exact Minecraft username. Do not send card details in a ticket.</p>
-      <a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">Purchase through Discord</a>
+      <p class="order-note">Available methods depend on your country, currency and the options enabled for our store. Checkout shows the methods you can use.</p>
+      <a class="button" href="https://nimersmc.tebex.store/" target="_blank" rel="noopener noreferrer">Shop &amp; Pay on Tebex</a>
+      <details class="payment-details">
+        <summary>Explore Tebex payment methods</summary>
+        <p>Tebex supports the following methods across its platform; not every option is available for every purchase.</p>
+        <ul class="payment-method-list"><li>PayPal</li><li>Credit/Debit Cards</li><li>oBucks gift card</li><li>Razer Gold PIN</li><li>Razer Gold Wallet</li><li>Pay With Crypto</li><li>Afterpay</li><li>Alipay</li><li>Appotapay</li><li>Bancontact</li><li>Belfius Direct Net</li><li>BLIK</li><li>Boleto Bancario</li><li>Boost</li><li>Bradesco</li><li>CashApp</li><li>CVS/pharmacy gift card</li><li>Dana</li><li>Dollar General gift card</li><li>Dragonpay Convenience Stores Philippines</li><li>Dragonpay eBanking</li><li>Efecty</li><li>EPS</li><li>GrabPay (PH)</li><li>iDeal</li><li>Internet Banking (PH)</li><li>Internet Banking (VN)</li><li>Kakao Pay</li><li>KBC/CBC</li><li>Klarna</li><li>LINE Pay</li><li>Linkaja</li><li>MACH</li><li>Mercado Pago</li><li>Mercado Pago (MX)</li><li>Mobile Money Kenya</li><li>Mobile Money Tanzania</li><li>Mobile Money Uganda</li><li>MobilePay</li><li>Momo</li><li>Multibanco</li><li>NAVER Pay</li><li>Nequi</li><li>Online Banking India</li><li>Ovo</li><li>OXXO</li><li>PagoEfectivo</li><li>PagoFacil</li><li>Pay by Bank</li><li>Payco</li><li>Paynow</li><li>Paysafecard</li><li>PicPay</li><li>Pix</li><li>PromptPay QR</li><li>PSE</li><li>RapiPago</li><li>SafetyPay Cash</li><li>SafetyPay Online</li><li>Samsung Pay</li><li>Sencillito</li><li>SEPA Bank Transfer</li><li>Servipag</li><li>ShopeePay (ID)</li><li>ShopeePay (VN)</li><li>SPEI Bank Transfers</li><li>Swish</li><li>TWINT</li><li>UPI</li><li>ViaBaloto</li><li>Vipps</li><li>VNPT Pay</li><li>WebPay</li></ul>
+        <p>Paysafecard requires separate store approval.</p>
+        <a href="https://www.tebex.io/payment-methods" target="_blank" rel="noopener noreferrer">Check the latest methods and supported countries on Tebex</a>
+      </details>
     </section>
 
     <section class="invite-section" id="invite-ranks">
@@ -742,36 +747,6 @@
   </footer>
 
   <script>
-    // Add your provider-created, public hosted checkout links here.
-    // Each link must have the correct rank, price and currency configured in
-    // the provider dashboard. Never put secret API keys or card data here.
-    // Configure Minecraft username collection and fulfilment with the provider.
-    const CARD_CHECKOUT_LINKS = Object.freeze({
-      plus: '',
-      plusplus: ''
-    });
-
-    document.querySelectorAll('.card-checkout').forEach(link => {
-      const rank = link.dataset.rank;
-      const configuredUrl = CARD_CHECKOUT_LINKS[rank];
-      if (!configuredUrl) return;
-      try {
-        const url = new URL(configuredUrl);
-        // Only trusted hosted payment providers; HTTPS alone is not sufficient.
-        const host = url.hostname;
-        const trusted = host === 'paypal.com' || host.endsWith('.paypal.com') ||
-          host === 'buy.stripe.com' || host === 'checkout.stripe.com' ||
-          host === 'checkout.tebex.io' || host.endsWith('.tebex.io');
-        if (url.protocol !== 'https:' || !trusted || url.username || url.password) return;
-        link.href = url.href;
-        link.hidden = false;
-        document.querySelector('[data-status="' + rank + '"]').textContent =
-          'Continue to the payment provider to see available card options.';
-      } catch {
-        // Leave checkout unavailable if configuration is invalid.
-      }
-    });
-
     document.querySelectorAll('[data-kit]').forEach(button => {
       button.addEventListener('click', () => document.getElementById(button.dataset.kit).showModal());
     });
