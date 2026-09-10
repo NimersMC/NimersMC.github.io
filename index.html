@@ -482,6 +482,7 @@
         margin-top: 8px;
       }
     }
+    [hidden] { display: none !important; }
   </style>
 </head>
 
@@ -525,7 +526,8 @@
             <li><strong>12 homes</strong></li>
             <li>6-row Ender Chest — <strong>54 slots</strong></li>
             <li><strong>16-chunk</strong> view distance</li>
-            <li>Supporter kit every <strong>48 hours</strong> with <span class="command">/kit +</span></li>
+            <li>Supporter kit every <strong>24 hours</strong> with <span class="command">/kit +</span></li>
+            <li>Orbital kit every <strong>48 hours</strong> with <span class="command">/kit orbitals+</span></li>
           </ul>
 
           <a class="button" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
@@ -547,6 +549,7 @@
             <li>6-row Ender Chest — <strong>54 slots</strong></li>
             <li><strong>18-chunk</strong> view distance</li>
             <li>The same supporter kit every <strong>24 hours</strong> with <span class="command">/kit ++</span></li>
+            <li>Orbital kit every <strong>24 hours</strong> with <span class="command">/kit orbitals++</span></li>
           </ul>
 
           <a class="button gold" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">
@@ -562,15 +565,36 @@
       <div class="kit-comparison" aria-label="Paid rank kit cooldown comparison">
         <div class="kit-option">
           <strong>+ Rank Kit</strong><br>
-          <span class="command">/kit +</span> · Every 48 hours
+          <span class="command">/kit +</span> · Every 24 hours<br>
+          <span class="command">/kit orbitals+</span> · Every 48 hours
         </div>
         <div class="kit-option">
           <strong>++ Rank Kit</strong><br>
-          <span class="command">/kit ++</span> · Every 24 hours
+          <span class="command">/kit ++</span> · Every 24 hours<br>
+          <span class="command">/kit orbitals++</span> · Every 24 hours
         </div>
       </div>
 
-      <p class="order-note">Both ranks receive the same kit contents; only the cooldown is different.</p>
+      <p class="order-note">Both regular supporter kits have the same contents and a 24-hour cooldown. Orbital kit cooldowns: + every 48 hours; ++ every 24 hours.</p>
+    </section>
+
+    <section class="server-box" id="payments" aria-labelledby="payments-title">
+      <h2 id="payments-title">Payment Methods</h2>
+      <p>Card payments will open a secure payment-provider checkout. Enter your card details only on that checkout page.</p>
+      <div class="kit-comparison">
+        <div class="kit-option">
+          <strong>+ Rank · $5</strong>
+          <p><a class="button card-checkout" data-rank="plus" hidden>Pay by Card · +</a></p>
+          <p class="checkout-status" data-status="plus">Card checkout is not available yet.</p>
+        </div>
+        <div class="kit-option">
+          <strong>++ Rank · $10</strong>
+          <p><a class="button gold card-checkout" data-rank="plusplus" hidden>Pay by Card · ++</a></p>
+          <p class="checkout-status" data-status="plusplus">Card checkout is not available yet.</p>
+        </div>
+      </div>
+      <p class="order-note">For now, open a purchase ticket on Discord and include your exact Minecraft username. Do not send card details in a ticket.</p>
+      <a class="button secondary" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer">Purchase through Discord</a>
     </section>
 
     <section class="invite-section" id="invite-ranks">
@@ -676,6 +700,36 @@
   </footer>
 
   <script>
+    // Add your provider-created, public hosted checkout links here.
+    // Each link must have the correct rank, price and currency configured in
+    // the provider dashboard. Never put secret API keys or card data here.
+    // Configure Minecraft username collection and fulfilment with the provider.
+    const CARD_CHECKOUT_LINKS = Object.freeze({
+      plus: '',
+      plusplus: ''
+    });
+
+    document.querySelectorAll('.card-checkout').forEach(link => {
+      const rank = link.dataset.rank;
+      const configuredUrl = CARD_CHECKOUT_LINKS[rank];
+      if (!configuredUrl) return;
+      try {
+        const url = new URL(configuredUrl);
+        // Only trusted hosted payment providers; HTTPS alone is not sufficient.
+        const host = url.hostname;
+        const trusted = host === 'paypal.com' || host.endsWith('.paypal.com') ||
+          host === 'buy.stripe.com' || host === 'checkout.stripe.com' ||
+          host === 'checkout.tebex.io' || host.endsWith('.tebex.io');
+        if (url.protocol !== 'https:' || !trusted || url.username || url.password) return;
+        link.href = url.href;
+        link.hidden = false;
+        document.querySelector('[data-status="' + rank + '"]').textContent =
+          'Continue to the payment provider to see available card options.';
+      } catch {
+        // Leave checkout unavailable if configuration is invalid.
+      }
+    });
+
     const copyButton = document.getElementById('copy-ip');
     const serverAddress = document.getElementById('server-ip').textContent.trim();
 
