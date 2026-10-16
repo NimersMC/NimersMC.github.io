@@ -84,6 +84,19 @@
     .hero-visual{position:relative;min-width:0}
     .world-art{display:block;width:100%;height:auto;filter:drop-shadow(0 25px 28px #0004)}
     .visual-caption{margin-top:-24px;text-align:center;font-size:11px;letter-spacing:.09em;color:#8c8497}
+    .server-stats{display:grid;grid-template-columns:1.1fr 1fr .9fr 1.55fr;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+    .stat-cell{min-width:0;min-height:60px;padding:15px 18px;display:flex;align-items:center;justify-content:center;gap:9px;font-size:12px;color:var(--muted)}
+    .stat-cell+.stat-cell{border-left:1px solid var(--line)}
+    .stat-cell strong{font-size:13px;font-weight:750;color:var(--text);font-variant-numeric:tabular-nums}
+    .stat-cell .icon{width:17px;height:17px;color:var(--subtle)}
+    .stat-label{font-size:11px}.stat-version{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:145px}
+    .status-dot{width:7px;height:7px;border-radius:50%;background:var(--subtle);flex:none}
+    [data-state="online"] .status-dot{background:#5bd69a;box-shadow:0 0 10px #5bd69a25}
+    [data-state="offline"] .status-dot{background:var(--red)}
+    .discord-stat{flex-wrap:wrap;gap:6px 9px;transition:background .15s}
+    .discord-stat:hover{background:var(--surface-high)}
+    .discord-stat .discord-online{display:inline-flex;align-items:center;gap:5px;margin-left:3px;white-space:nowrap}
+    .stats-note{font-size:10px;color:var(--subtle);text-align:right;margin:9px 0 20px}
     .hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:21px;border-top:1px solid var(--line)}
     .hero-bottom p{font-size:12px}
     .hero-bottom strong{color:#d8dbe4;font-weight:600}
@@ -224,6 +237,7 @@
       .hero h1{font-size:55px}.hero-description{font-size:14px}.hero-label{font-size:10px}
       .address-bar{gap:9px;padding-left:13px}.address-bar .button{padding-inline:13px;font-size:13px}
       .server-address{font-size:22px}.guide-layout{gap:35px;grid-template-columns:1fr 1.8fr}
+      .stat-cell{padding:14px 12px;gap:7px;font-size:11px}.stat-cell strong{font-size:12px}
       .overview-grid{gap:22px}.invite-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .community-panel{padding:30px}
     }
@@ -238,6 +252,11 @@
       .hero-copy{max-width:580px}.hero h1{font-size:clamp(40px,8.6vw,60px)}
       .hero-label{margin-bottom:21px}.hero-description{max-width:460px;font-size:14px;margin-top:18px}
       .hero-visual{display:none}.address-label{margin-top:25px}.address-bar{max-width:485px}
+      .server-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .stat-cell{min-height:58px;padding:13px 9px;gap:7px;font-size:11px}.stat-cell:nth-child(3){border-left:0}
+      .stat-cell:nth-child(n+3){border-top:1px solid var(--line)}.stat-cell strong{font-size:12px}
+      .discord-stat{column-gap:6px;row-gap:2px}.discord-stat .icon{display:none}
+      .discord-stat .discord-online{margin-left:0}.stats-note{text-align:left;font-size:10px;line-height:1.7;margin-bottom:18px}
       .server-address{font-size:24px}.hero-bottom{align-items:flex-start;flex-direction:column;gap:12px;padding-block:18px}
       .hero-tags{gap:17px;font-size:11px}.hero-bottom p{font-size:11px}
       .section{padding-block:52px}.section-head{align-items:flex-start;flex-direction:column;gap:14px;margin-bottom:23px}
@@ -311,6 +330,16 @@
           <svg class="world-art" viewBox="0 0 600 470" role="img" aria-labelledby="world-title world-desc" xmlns="http://www.w3.org/2000/svg"><title id="world-title">Your next adventure</title><desc id="world-desc">An illustrated floating island built from blocks, with trees, stone steps, and a red flag.</desc><defs><radialGradient id="island-glow"><stop stop-color="#de3f49" stop-opacity=".2"/><stop offset="1" stop-color="#de3f49" stop-opacity="0"/></radialGradient><linearGradient id="island-shadow" x2="0" y2="1"><stop stop-color="#ef5661" stop-opacity=".14"/><stop offset="1" stop-color="#ef5661" stop-opacity="0"/></linearGradient></defs><ellipse cx="305" cy="255" rx="255" ry="205" fill="url(#island-glow)"/><ellipse cx="300" cy="410" rx="159" ry="25" fill="#000" opacity=".4"/><path d="M115 195 300 102 485 195 300 288Z" fill="none" stroke="#34343d" stroke-dasharray="3 9"/><path d="M90 282 300 387 510 282" fill="none" stroke="#34343d" stroke-dasharray="3 9"/><rect x="90" y="110" width="4" height="4" rx="1" fill="#6c6674" opacity=".7"/><rect x="475" y="90" width="5" height="5" rx="1" fill="#6c6674" opacity=".7"/><rect x="520" y="190" width="3" height="3" rx="1" fill="#6c6674" opacity=".7"/><rect x="420" y="48" width="3" height="3" rx="1" fill="#6c6674" opacity=".7"/><rect x="145" y="345" width="3" height="3" rx="1" fill="#6c6674" opacity=".7"/><rect x="64" y="240" width="4" height="4" rx="1" fill="#6c6674" opacity=".7"/><polygon points="277,181.5 300,193.0 277,204.5 254,193.0" fill="#617b53"/><polygon points="254,193.0 277,204.5 277,253.5 254,242.0" fill="#453d38"/><polygon points="277,204.5 300,193.0 300,242.0 277,253.5" fill="#302b2b"/><polygon points="323,181.5 346,193.0 323,204.5 300,193.0" fill="#819567"/><polygon points="300,193.0 323,204.5 323,241.5 300,230.0" fill="#493f36"/><polygon points="323,204.5 346,193.0 346,230.0 323,241.5" fill="#352c2c"/><polygon points="254,193.0 277,204.5 254,216.0 231,204.5" fill="#71895e"/><polygon points="231,204.5 254,216.0 254,265.0 231,253.5" fill="#4b4038"/><polygon points="254,216.0 277,204.5 277,253.5 254,265.0" fill="#332d2b"/><polygon points="300,193.0 323,204.5 300,216.0 277,204.5" fill="#819567"/><polygon points="277,204.5 300,216.0 300,271.0 277,259.5" fill="#493f36"/><polygon points="300,216.0 323,204.5 323,259.5 300,271.0" fill="#352c2c"/><polygon points="346,193.0 369,204.5 346,216.0 323,204.5" fill="#617b53"/><polygon points="323,204.5 346,216.0 346,265.0 323,253.5" fill="#453d38"/><polygon points="346,216.0 369,204.5 369,253.5 346,265.0" fill="#302b2b"/><polygon points="231,204.5 254,216.0 231,227.5 208,216.0" fill="#71895e"/><polygon points="208,216.0 231,227.5 231,270.5 208,259.0" fill="#4b4038"/><polygon points="231,227.5 254,216.0 254,259.0 231,270.5" fill="#332d2b"/><polygon points="277,204.5 300,216.0 277,227.5 254,216.0" fill="#617b53"/><polygon points="254,216.0 277,227.5 277,282.5 254,271.0" fill="#453d38"/><polygon points="277,227.5 300,216.0 300,271.0 277,282.5" fill="#302b2b"/><polygon points="323,204.5 346,216.0 323,227.5 300,216.0" fill="#819567"/><polygon points="300,216.0 323,227.5 323,270.5 300,259.0" fill="#493f36"/><polygon points="323,227.5 346,216.0 346,259.0 323,270.5" fill="#352c2c"/><polygon points="369,204.5 392,216.0 369,227.5 346,216.0" fill="#617b53"/><polygon points="346,216.0 369,227.5 369,282.5 346,271.0" fill="#453d38"/><polygon points="369,227.5 392,216.0 392,271.0 369,282.5" fill="#302b2b"/><polygon points="208,216.0 231,227.5 208,239.0 185,227.5" fill="#617b53"/><polygon points="185,227.5 208,239.0 208,276.0 185,264.5" fill="#453d38"/><polygon points="208,239.0 231,227.5 231,264.5 208,276.0" fill="#302b2b"/><polygon points="254,216.0 277,227.5 254,239.0 231,227.5" fill="#71895e"/><polygon points="231,227.5 254,239.0 254,294.0 231,282.5" fill="#4b4038"/><polygon points="254,239.0 277,227.5 277,282.5 254,294.0" fill="#332d2b"/><polygon points="300,216.0 323,227.5 300,239.0 277,227.5" fill="#819567"/><polygon points="277,227.5 300,239.0 300,276.0 277,264.5" fill="#493f36"/><polygon points="300,239.0 323,227.5 323,264.5 300,276.0" fill="#352c2c"/><polygon points="346,216.0 369,227.5 346,239.0 323,227.5" fill="#71895e"/><polygon points="323,227.5 346,239.0 346,294.0 323,282.5" fill="#4b4038"/><polygon points="346,239.0 369,227.5 369,282.5 346,294.0" fill="#332d2b"/><polygon points="392,216.0 415,227.5 392,239.0 369,227.5" fill="#617b53"/><polygon points="369,227.5 392,239.0 392,276.0 369,264.5" fill="#453d38"/><polygon points="392,239.0 415,227.5 415,264.5 392,276.0" fill="#302b2b"/><polygon points="185,227.5 208,239.0 185,250.5 162,239.0" fill="#819567"/><polygon points="162,239.0 185,250.5 185,287.5 162,276.0" fill="#493f36"/><polygon points="185,250.5 208,239.0 208,276.0 185,287.5" fill="#352c2c"/><polygon points="231,227.5 254,239.0 231,250.5 208,239.0" fill="#819567"/><polygon points="208,239.0 231,250.5 231,299.5 208,288.0" fill="#493f36"/><polygon points="231,250.5 254,239.0 254,288.0 231,299.5" fill="#352c2c"/><polygon points="277,227.5 300,239.0 277,250.5 254,239.0" fill="#777580"/><polygon points="254,239.0 277,250.5 277,293.5 254,282.0" fill="#4c4955"/><polygon points="277,250.5 300,239.0 300,282.0 277,293.5" fill="#36343f"/><polygon points="323,227.5 346,239.0 323,250.5 300,239.0" fill="#819567"/><polygon points="300,239.0 323,250.5 323,299.5 300,288.0" fill="#493f36"/><polygon points="323,250.5 346,239.0 346,288.0 323,299.5" fill="#352c2c"/><polygon points="369,227.5 392,239.0 369,250.5 346,239.0" fill="#819567"/><polygon points="346,239.0 369,250.5 369,299.5 346,288.0" fill="#493f36"/><polygon points="369,250.5 392,239.0 392,288.0 369,299.5" fill="#352c2c"/><polygon points="415,227.5 438,239.0 415,250.5 392,239.0" fill="#819567"/><polygon points="392,239.0 415,250.5 415,299.5 392,288.0" fill="#493f36"/><polygon points="415,250.5 438,239.0 438,288.0 415,299.5" fill="#352c2c"/><polygon points="162,239.0 185,250.5 162,262.0 139,250.5" fill="#819567"/><polygon points="139,250.5 162,262.0 162,311.0 139,299.5" fill="#493f36"/><polygon points="162,262.0 185,250.5 185,299.5 162,311.0" fill="#352c2c"/><polygon points="208,239.0 231,250.5 208,262.0 185,250.5" fill="#71895e"/><polygon points="185,250.5 208,262.0 208,299.0 185,287.5" fill="#4b4038"/><polygon points="208,262.0 231,250.5 231,287.5 208,299.0" fill="#332d2b"/><polygon points="254,239.0 277,250.5 254,262.0 231,250.5" fill="#8b8790"/><polygon points="231,250.5 254,262.0 254,305.0 231,293.5" fill="#5f5a64"/><polygon points="254,262.0 277,250.5 277,293.5 254,305.0" fill="#43404b"/><polygon points="300,239.0 323,250.5 300,262.0 277,250.5" fill="#777580"/><polygon points="277,250.5 300,262.0 300,317.0 277,305.5" fill="#4c4955"/><polygon points="300,262.0 323,250.5 323,305.5 300,317.0" fill="#36343f"/><polygon points="346,239.0 369,250.5 346,262.0 323,250.5" fill="#617b53"/><polygon points="323,250.5 346,262.0 346,305.0 323,293.5" fill="#453d38"/><polygon points="346,262.0 369,250.5 369,293.5 346,305.0" fill="#302b2b"/><polygon points="392,239.0 415,250.5 392,262.0 369,250.5" fill="#819567"/><polygon points="369,250.5 392,262.0 392,311.0 369,299.5" fill="#493f36"/><polygon points="392,262.0 415,250.5 415,299.5 392,311.0" fill="#352c2c"/><polygon points="438,239.0 461,250.5 438,262.0 415,250.5" fill="#819567"/><polygon points="415,250.5 438,262.0 438,305.0 415,293.5" fill="#493f36"/><polygon points="438,262.0 461,250.5 461,293.5 438,305.0" fill="#352c2c"/><polygon points="185,250.5 208,262.0 185,273.5 162,262.0" fill="#617b53"/><polygon points="162,262.0 185,273.5 185,310.5 162,299.0" fill="#453d38"/><polygon points="185,273.5 208,262.0 208,299.0 185,310.5" fill="#302b2b"/><polygon points="231,250.5 254,262.0 231,273.5 208,262.0" fill="#71895e"/><polygon points="208,262.0 231,273.5 231,310.5 208,299.0" fill="#4b4038"/><polygon points="231,273.5 254,262.0 254,299.0 231,310.5" fill="#332d2b"/><polygon points="277,250.5 300,262.0 277,273.5 254,262.0" fill="#8b8790"/><polygon points="254,262.0 277,273.5 277,310.5 254,299.0" fill="#5f5a64"/><polygon points="277,273.5 300,262.0 300,299.0 277,310.5" fill="#43404b"/><polygon points="323,250.5 346,262.0 323,273.5 300,262.0" fill="#8b8790"/><polygon points="300,262.0 323,273.5 323,322.5 300,311.0" fill="#5f5a64"/><polygon points="323,273.5 346,262.0 346,311.0 323,322.5" fill="#43404b"/><polygon points="369,250.5 392,262.0 369,273.5 346,262.0" fill="#71895e"/><polygon points="346,262.0 369,273.5 369,310.5 346,299.0" fill="#4b4038"/><polygon points="369,273.5 392,262.0 392,299.0 369,310.5" fill="#332d2b"/><polygon points="415,250.5 438,262.0 415,273.5 392,262.0" fill="#819567"/><polygon points="392,262.0 415,273.5 415,322.5 392,311.0" fill="#493f36"/><polygon points="415,273.5 438,262.0 438,311.0 415,322.5" fill="#352c2c"/><polygon points="162,262.0 185,273.5 162,285.0 139,273.5" fill="#71895e"/><polygon points="139,273.5 162,285.0 162,334.0 139,322.5" fill="#4b4038"/><polygon points="162,285.0 185,273.5 185,322.5 162,334.0" fill="#332d2b"/><path d="M139 273.5 162 285.0 185 273.5" fill="none" stroke="#526344" stroke-width="5"/><path d="M165 299.0v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="208,262.0 231,273.5 208,285.0 185,273.5" fill="#617b53"/><polygon points="185,273.5 208,285.0 208,334.0 185,322.5" fill="#453d38"/><polygon points="208,285.0 231,273.5 231,322.5 208,334.0" fill="#302b2b"/><polygon points="254,262.0 277,273.5 254,285.0 231,273.5" fill="#819567"/><polygon points="231,273.5 254,285.0 254,322.0 231,310.5" fill="#493f36"/><polygon points="254,285.0 277,273.5 277,310.5 254,322.0" fill="#352c2c"/><polygon points="300,262.0 323,273.5 300,285.0 277,273.5" fill="#8b8790"/><polygon points="277,273.5 300,285.0 300,322.0 277,310.5" fill="#5f5a64"/><polygon points="300,285.0 323,273.5 323,310.5 300,322.0" fill="#43404b"/><polygon points="346,262.0 369,273.5 346,285.0 323,273.5" fill="#71895e"/><polygon points="323,273.5 346,285.0 346,328.0 323,316.5" fill="#4b4038"/><polygon points="346,285.0 369,273.5 369,316.5 346,328.0" fill="#332d2b"/><polygon points="392,262.0 415,273.5 392,285.0 369,273.5" fill="#819567"/><polygon points="369,273.5 392,285.0 392,328.0 369,316.5" fill="#493f36"/><polygon points="392,285.0 415,273.5 415,316.5 392,328.0" fill="#352c2c"/><polygon points="438,262.0 461,273.5 438,285.0 415,273.5" fill="#71895e"/><polygon points="415,273.5 438,285.0 438,322.0 415,310.5" fill="#4b4038"/><polygon points="438,285.0 461,273.5 461,310.5 438,322.0" fill="#332d2b"/><path d="M415 273.5 438 285.0 461 273.5" fill="none" stroke="#526344" stroke-width="5"/><polygon points="185,273.5 208,285.0 185,296.5 162,285.0" fill="#617b53"/><polygon points="162,285.0 185,296.5 185,333.5 162,322.0" fill="#453d38"/><polygon points="185,296.5 208,285.0 208,322.0 185,333.5" fill="#302b2b"/><path d="M162 285.0 185 296.5 208 285.0" fill="none" stroke="#526344" stroke-width="5"/><path d="M188 310.5v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="231,273.5 254,285.0 231,296.5 208,285.0" fill="#617b53"/><polygon points="208,285.0 231,296.5 231,351.5 208,340.0" fill="#453d38"/><polygon points="231,296.5 254,285.0 254,340.0 231,351.5" fill="#302b2b"/><polygon points="277,273.5 300,285.0 277,296.5 254,285.0" fill="#617b53"/><polygon points="254,285.0 277,296.5 277,339.5 254,328.0" fill="#453d38"/><polygon points="277,296.5 300,285.0 300,328.0 277,339.5" fill="#302b2b"/><polygon points="323,273.5 346,285.0 323,296.5 300,285.0" fill="#617b53"/><polygon points="300,285.0 323,296.5 323,333.5 300,322.0" fill="#453d38"/><polygon points="323,296.5 346,285.0 346,322.0 323,333.5" fill="#302b2b"/><polygon points="369,273.5 392,285.0 369,296.5 346,285.0" fill="#819567"/><polygon points="346,285.0 369,296.5 369,333.5 346,322.0" fill="#493f36"/><polygon points="369,296.5 392,285.0 392,322.0 369,333.5" fill="#352c2c"/><polygon points="415,273.5 438,285.0 415,296.5 392,285.0" fill="#819567"/><polygon points="392,285.0 415,296.5 415,351.5 392,340.0" fill="#493f36"/><polygon points="415,296.5 438,285.0 438,340.0 415,351.5" fill="#352c2c"/><path d="M392 285.0 415 296.5 438 285.0" fill="none" stroke="#526344" stroke-width="5"/><polygon points="208,285.0 231,296.5 208,308.0 185,296.5" fill="#71895e"/><polygon points="185,296.5 208,308.0 208,345.0 185,333.5" fill="#4b4038"/><polygon points="208,308.0 231,296.5 231,333.5 208,345.0" fill="#332d2b"/><path d="M185 296.5 208 308.0 231 296.5" fill="none" stroke="#526344" stroke-width="5"/><polygon points="254,285.0 277,296.5 254,308.0 231,296.5" fill="#617b53"/><polygon points="231,296.5 254,308.0 254,345.0 231,333.5" fill="#453d38"/><polygon points="254,308.0 277,296.5 277,333.5 254,345.0" fill="#302b2b"/><polygon points="300,285.0 323,296.5 300,308.0 277,296.5" fill="#71895e"/><polygon points="277,296.5 300,308.0 300,357.0 277,345.5" fill="#4b4038"/><polygon points="300,308.0 323,296.5 323,345.5 300,357.0" fill="#332d2b"/><polygon points="346,285.0 369,296.5 346,308.0 323,296.5" fill="#71895e"/><polygon points="323,296.5 346,308.0 346,351.0 323,339.5" fill="#4b4038"/><polygon points="346,308.0 369,296.5 369,339.5 346,351.0" fill="#332d2b"/><polygon points="392,285.0 415,296.5 392,308.0 369,296.5" fill="#617b53"/><polygon points="369,296.5 392,308.0 392,357.0 369,345.5" fill="#453d38"/><polygon points="392,308.0 415,296.5 415,345.5 392,357.0" fill="#302b2b"/><path d="M369 296.5 392 308.0 415 296.5" fill="none" stroke="#526344" stroke-width="5"/><polygon points="231,296.5 254,308.0 231,319.5 208,308.0" fill="#819567"/><polygon points="208,308.0 231,319.5 231,362.5 208,351.0" fill="#493f36"/><polygon points="231,319.5 254,308.0 254,351.0 231,362.5" fill="#352c2c"/><path d="M208 308.0 231 319.5 254 308.0" fill="none" stroke="#526344" stroke-width="5"/><path d="M234 333.5v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="277,296.5 300,308.0 277,319.5 254,308.0" fill="#71895e"/><polygon points="254,308.0 277,319.5 277,362.5 254,351.0" fill="#4b4038"/><polygon points="277,319.5 300,308.0 300,351.0 277,362.5" fill="#332d2b"/><polygon points="323,296.5 346,308.0 323,319.5 300,308.0" fill="#71895e"/><polygon points="300,308.0 323,319.5 323,356.5 300,345.0" fill="#4b4038"/><polygon points="323,319.5 346,308.0 346,345.0 323,356.5" fill="#332d2b"/><polygon points="369,296.5 392,308.0 369,319.5 346,308.0" fill="#617b53"/><polygon points="346,308.0 369,319.5 369,362.5 346,351.0" fill="#453d38"/><polygon points="369,319.5 392,308.0 392,351.0 369,362.5" fill="#302b2b"/><path d="M346 308.0 369 319.5 392 308.0" fill="none" stroke="#526344" stroke-width="5"/><polygon points="254,308.0 277,319.5 254,331.0 231,319.5" fill="#819567"/><polygon points="231,319.5 254,331.0 254,380.0 231,368.5" fill="#493f36"/><polygon points="254,331.0 277,319.5 277,368.5 254,380.0" fill="#352c2c"/><path d="M231 319.5 254 331.0 277 319.5" fill="none" stroke="#526344" stroke-width="5"/><path d="M257 345.0v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="300,308.0 323,319.5 300,331.0 277,319.5" fill="#819567"/><polygon points="277,319.5 300,331.0 300,374.0 277,362.5" fill="#493f36"/><polygon points="300,331.0 323,319.5 323,362.5 300,374.0" fill="#352c2c"/><polygon points="346,308.0 369,319.5 346,331.0 323,319.5" fill="#617b53"/><polygon points="323,319.5 346,331.0 346,386.0 323,374.5" fill="#453d38"/><polygon points="346,331.0 369,319.5 369,374.5 346,386.0" fill="#302b2b"/><path d="M323 319.5 346 331.0 369 319.5" fill="none" stroke="#526344" stroke-width="5"/><path d="M349 345.0v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="277,319.5 300,331.0 277,342.5 254,331.0" fill="#819567"/><polygon points="254,331.0 277,342.5 277,385.5 254,374.0" fill="#493f36"/><polygon points="277,342.5 300,331.0 300,374.0 277,385.5" fill="#352c2c"/><path d="M254 331.0 277 342.5 300 331.0" fill="none" stroke="#526344" stroke-width="5"/><polygon points="323,319.5 346,331.0 323,342.5 300,331.0" fill="#71895e"/><polygon points="300,331.0 323,342.5 323,397.5 300,386.0" fill="#4b4038"/><polygon points="323,342.5 346,331.0 346,386.0 323,397.5" fill="#332d2b"/><path d="M300 331.0 323 342.5 346 331.0" fill="none" stroke="#526344" stroke-width="5"/><path d="M326 356.5v12m8-17v8" stroke="#211e25" stroke-width="3" opacity=".65"/><polygon points="323,264.5 343,274.5 323,284.5 303,274.5" fill="#a3a1a8"/><polygon points="303,274.5 323,284.5 323,292.5 303,282.5" fill="#73707a"/><polygon points="323,284.5 343,274.5 343,282.5 323,292.5" fill="#55525f"/><polygon points="300,253.0 320,263.0 300,273.0 280,263.0" fill="#a3a1a8"/><polygon points="280,263.0 300,273.0 300,281.0 280,271.0" fill="#73707a"/><polygon points="300,273.0 320,263.0 320,271.0 300,281.0" fill="#55525f"/><polygon points="277,241.5 297,251.5 277,261.5 257,251.5" fill="#a3a1a8"/><polygon points="257,251.5 277,261.5 277,269.5 257,259.5" fill="#73707a"/><polygon points="277,261.5 297,251.5 297,259.5 277,269.5" fill="#55525f"/><polygon points="277,146.5 286,151.0 277,155.5 268,151.0" fill="#a48260"/><polygon points="268,151.0 277,155.5 277,221.5 268,217.0" fill="#70513c"/><polygon points="277,155.5 286,151.0 286,217.0 277,221.5" fill="#4a382e"/><polygon points="277,121.5 314,140.0 277,158.5 240,140.0" fill="#4f7053"/><polygon points="240,140.0 277,158.5 277,193.5 240,175.0" fill="#304e3d"/><polygon points="277,158.5 314,140.0 314,175.0 277,193.5" fill="#233e34"/><polygon points="281,96.5 309,110.5 281,124.5 253,110.5" fill="#64825d"/><polygon points="253,110.5 281,124.5 281,153.5 253,139.5" fill="#3e6047"/><polygon points="281,124.5 309,110.5 309,139.5 281,153.5" fill="#2c4938"/><polygon points="273,81.5 291,90.5 273,99.5 255,90.5" fill="#7c9568"/><polygon points="255,90.5 273,99.5 273,119.5 255,110.5" fill="#506e4c"/><polygon points="273,99.5 291,90.5 291,110.5 273,119.5" fill="#3c593e"/><polygon points="392,181.0 401,185.5 392,190.0 383,185.5" fill="#a48260"/><polygon points="383,185.5 392,190.0 392,256.0 383,251.5" fill="#70513c"/><polygon points="392,190.0 401,185.5 401,251.5 392,256.0" fill="#4a382e"/><polygon points="392,156.0 429,174.5 392,193.0 355,174.5" fill="#4f7053"/><polygon points="355,174.5 392,193.0 392,228.0 355,209.5" fill="#304e3d"/><polygon points="392,193.0 429,174.5 429,209.5 392,228.0" fill="#233e34"/><polygon points="396,131.0 424,145.0 396,159.0 368,145.0" fill="#64825d"/><polygon points="368,145.0 396,159.0 396,188.0 368,174.0" fill="#3e6047"/><polygon points="396,159.0 424,145.0 424,174.0 396,188.0" fill="#2c4938"/><polygon points="388,116.0 406,125.0 388,134.0 370,125.0" fill="#7c9568"/><polygon points="370,125.0 388,134.0 388,154.0 370,145.0" fill="#506e4c"/><polygon points="388,134.0 406,125.0 406,145.0 388,154.0" fill="#3c593e"/><polygon points="208,204.0 217,208.5 208,213.0 199,208.5" fill="#a48260"/><polygon points="199,208.5 208,213.0 208,279.0 199,274.5" fill="#70513c"/><polygon points="208,213.0 217,208.5 217,274.5 208,279.0" fill="#4a382e"/><polygon points="208,179.0 245,197.5 208,216.0 171,197.5" fill="#4f7053"/><polygon points="171,197.5 208,216.0 208,251.0 171,232.5" fill="#304e3d"/><polygon points="208,216.0 245,197.5 245,232.5 208,251.0" fill="#233e34"/><polygon points="212,154.0 240,168.0 212,182.0 184,168.0" fill="#64825d"/><polygon points="184,168.0 212,182.0 212,211.0 184,197.0" fill="#3e6047"/><polygon points="212,182.0 240,168.0 240,197.0 212,211.0" fill="#2c4938"/><polygon points="204,139.0 222,148.0 204,157.0 186,148.0" fill="#7c9568"/><polygon points="186,148.0 204,157.0 204,177.0 186,168.0" fill="#506e4c"/><polygon points="204,157.0 222,148.0 222,168.0 204,177.0" fill="#3c593e"/><polygon points="300,144 324,156.0 300,168 276,156.0" fill="#99959f"/><polygon points="276,156.0 300,168 300,230 276,218.0" fill="#67636f"/><polygon points="300,168 324,156.0 324,218.0 300,230" fill="#4b4754"/><polygon points="300,128 329,142.5 300,157 271,142.5" fill="#bab5bc"/><polygon points="271,142.5 300,157 300,173 271,158.5" fill="#817a87"/><polygon points="300,157 329,142.5 329,158.5 300,173" fill="#655e6e"/><polygon points="282,126 291,130.5 282,135 273,130.5" fill="#b6b1ba"/><polygon points="273,130.5 282,135 282,148 273,143.5" fill="#80798b"/><polygon points="282,135 291,130.5 291,143.5 282,148" fill="#625a6e"/><polygon points="318,126 327,130.5 318,135 309,130.5" fill="#b6b1ba"/><polygon points="309,130.5 318,135 318,148 309,143.5" fill="#80798b"/><polygon points="318,135 327,130.5 327,143.5 318,148" fill="#625a6e"/><polygon points="300,116 309,120.5 300,125 291,120.5" fill="#b6b1ba"/><polygon points="291,120.5 300,125 300,138 291,133.5" fill="#80798b"/><polygon points="300,125 309,120.5 309,133.5 300,138" fill="#625a6e"/><path d="M307 117V31" stroke="#b8b2bf" stroke-width="5"/><path d="M309 34 363 46 356 62 363 77 309 65Z" fill="#ed505b"/><path d="M309 34V65l15 3V38Z" fill="#c93645"/><path d="m330 43 12 3v12l-12-3Z" fill="#ffd8da" opacity=".85"/><path d="M267 389 280 400 267 411 254 400Z" fill="#62545e"/><path d="M267 411v15l-13-11v-15Z" fill="#39303c"/><path d="M267 411v15l13-11v-15Z" fill="#29232f"/></svg>
           <figcaption class="visual-caption">A world of possibilities. A place to call yours.</figcaption>
         </figure>
+      </div>
+      <div class="container">
+        <div class="server-stats" aria-label="Minecraft and Discord status">
+          <div class="stat-cell"><span class="stat-label">IP</span><strong>nimermc.net</strong></div>
+          <div class="stat-cell" id="mc-status" data-state="unknown" role="status" aria-live="polite" aria-atomic="true"><span class="status-dot" aria-hidden="true"></span><strong id="mc-players">—</strong><span id="mc-state">Checking status</span></div>
+          <div class="stat-cell"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cube"/></svg><span class="stat-label">Version</span><strong class="stat-version" id="mc-version">—</strong></div>
+          <a class="stat-cell discord-stat" id="discord-status" data-state="unknown" href="https://discord.gg/kqzxZjHFJF" target="_blank" rel="noopener noreferrer" aria-label="NimersMC Discord; member counts are approximate"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-message"/></svg><strong id="discord-members">—</strong><span>members</span><span class="discord-online"><span class="status-dot" aria-hidden="true"></span><strong id="discord-online">—</strong><span>online</span></span></a>
+        </div>
+        <p class="stats-note">Counts update every few minutes. Discord counts are approximate.</p>
+        <noscript><p class="join-note">Live counts need JavaScript. You can still join at nimermc.net or open our Discord.</p></noscript>
       </div>
       <div class="container hero-bottom">
         <div class="hero-tags"><span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cube"/></svg> Survival</span><span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-swords"/></svg> PvP</span><span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flag"/></svg> KOTH events</span><span><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hammer"/></svg> Custom crafting</span></div>
@@ -494,6 +523,100 @@
         if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) dialog.close();
       });
     });
+
+    // Public, read-only endpoints. Never put a bot token or server-panel key here.
+    const statsConfig = Object.freeze({
+      minecraft: 'https://api.mcsrvstat.us/3/185.207.166.133:12007',
+      discord: 'https://discord.com/api/v10/invites/kqzxZjHFJF?with_counts=true',
+      refreshMs: 5 * 60 * 1000
+    });
+    const mcStatus = document.getElementById('mc-status');
+    const mcPlayers = document.getElementById('mc-players');
+    const mcState = document.getElementById('mc-state');
+    const mcVersion = document.getElementById('mc-version');
+    const discordStatus = document.getElementById('discord-status');
+    const discordMembers = document.getElementById('discord-members');
+    const discordOnline = document.getElementById('discord-online');
+    let lastStatsRefresh = 0;
+    let statsRefreshPromise;
+
+    function formatCount(value) {
+      return Number.isSafeInteger(value) && value >= 0 ? value.toLocaleString('en-US') : null;
+    }
+
+    async function fetchStatus(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      try {
+        const response = await fetch(url, { signal: controller.signal, credentials: 'omit' });
+        if (!response.ok) throw new Error('Status service unavailable');
+        return await response.json();
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    async function updateMinecraftStatus() {
+      try {
+        const data = await fetchStatus(statsConfig.minecraft);
+        if (!data || typeof data.online !== 'boolean') throw new Error('Invalid server status');
+        if (!data.online) {
+          mcStatus.dataset.state = 'offline';
+          mcPlayers.textContent = '—';
+          mcState.textContent = 'Server offline';
+          mcVersion.textContent = '—';
+          mcVersion.removeAttribute('title');
+          return;
+        }
+        const count = formatCount(data.players?.online);
+        mcStatus.dataset.state = 'online';
+        mcPlayers.textContent = count ?? '—';
+        mcState.textContent = count === null ? 'Server online' : 'players online';
+        const version = typeof data.version === 'string' && data.version.trim() ? data.version.trim() : '—';
+        mcVersion.textContent = version;
+        mcVersion.title = version;
+      } catch {
+        mcStatus.dataset.state = 'unknown';
+        mcPlayers.textContent = '—';
+        mcState.textContent = 'Status unavailable';
+        mcVersion.textContent = '—';
+        mcVersion.removeAttribute('title');
+      }
+    }
+
+    async function updateDiscordStatus() {
+      try {
+        const data = await fetchStatus(statsConfig.discord);
+        const members = formatCount(data?.approximate_member_count);
+        const online = formatCount(data?.approximate_presence_count);
+        if (members === null || online === null) throw new Error('Discord counts unavailable');
+        discordMembers.textContent = members;
+        discordOnline.textContent = online;
+        discordStatus.dataset.state = 'online';
+        discordStatus.title = 'Discord member counts are approximate';
+        discordStatus.setAttribute('aria-label', 'Join NimersMC Discord. About ' + members + ' members, ' + online + ' online.');
+      } catch {
+        discordMembers.textContent = '—';
+        discordOnline.textContent = '—';
+        discordStatus.dataset.state = 'unknown';
+        discordStatus.title = 'Counts unavailable right now. Open Discord to join.';
+        discordStatus.setAttribute('aria-label', 'Join NimersMC Discord. Member counts are unavailable right now.');
+      }
+    }
+
+    function refreshStats() {
+      if (document.visibilityState === 'hidden') return Promise.resolve();
+      if (statsRefreshPromise) return statsRefreshPromise;
+      if (Date.now() - lastStatsRefresh < statsConfig.refreshMs) return Promise.resolve();
+      lastStatsRefresh = Date.now();
+      statsRefreshPromise = Promise.allSettled([updateMinecraftStatus(), updateDiscordStatus()])
+        .finally(() => { statsRefreshPromise = undefined; });
+      return statsRefreshPromise;
+    }
+
+    refreshStats();
+    setInterval(refreshStats, statsConfig.refreshMs);
+    document.addEventListener('visibilitychange', refreshStats);
   </script>
 </body>
 </html>
