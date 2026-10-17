@@ -101,6 +101,21 @@ The visual layout hasn’t been browser-tested yet.
 
 index.html
 HTML
+User attachment
+I found the problem: your live index.html contains our chat messages before <!DOCTYPE html>. The shop code underneath matches the clean file.
+
+To fix it:
+
+Open index.html → Edit in GitHub.
+Delete everything above <!DOCTYPE html>, making it the first line.
+Click Commit changes, wait for deployment, then refresh with Ctrl + F5.
+You can also replace it with this 
+clean index.html
+.
+
+
+index.html
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
