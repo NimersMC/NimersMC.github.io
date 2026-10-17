@@ -485,7 +485,7 @@
       <nav class="nav" aria-label="Main navigation">
         <a href="#home" data-nav-page="home" aria-current="page">Home</a><a href="#guide" data-nav-page="guide">Server guide</a><a href="#shop" data-nav-page="shop">Shop</a>
       </nav>
-      <div class="header-shop-actions"><button class="shop-header-button" type="button" id="shop-player-button" aria-label="Enter your Minecraft username" aria-controls="player-dialog" aria-haspopup="dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-player"/></svg><span id="shop-player-label">Log in</span></button><button class="shop-header-button" type="button" id="shop-basket-button" aria-label="Open basket, 0 items" aria-controls="basket-dialog" aria-haspopup="dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-basket"/></svg><span class="basket-button-label">Basket</span><span class="basket-count" id="shop-basket-count">0</span></button><button class="button button-primary header-join" type="button" data-copy-server aria-label="Copy Minecraft server address nimermc.net"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg> <span data-copy-label>Copy IP</span></button></div>
+      <div class="header-shop-actions"><button class="shop-header-button" type="button" id="shop-player-button" aria-label="Enter your Minecraft username" aria-controls="player-dialog" aria-haspopup="dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-player"/></svg><span id="shop-player-label">Log in</span></button><button class="shop-header-button" type="button" id="shop-basket-button" hidden aria-label="Open basket, 0 items" aria-controls="basket-dialog" aria-haspopup="dialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-basket"/></svg><span class="basket-button-label">Basket</span><span class="basket-count" id="shop-basket-count">0</span></button><button class="button button-primary header-join" type="button" data-copy-server aria-label="Copy Minecraft server address nimermc.net"><svg class="icon " viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg> <span data-copy-label>Copy IP</span></button></div>
     </div>
   </header>
   <main id="main">
@@ -1047,7 +1047,14 @@
     })().catch(error => { catalogPromise = null; throw error; });
     return catalogPromise;
   }
+  function syncBasketVisibility() {
+    const inShop = byId('shop-page').hidden === false;
+    cartButton.hidden = !inShop;
+    if (!inShop && cartDialog.open) cartDialog.close();
+    return inShop;
+  }
   async function openBasket() {
+    if (!syncBasketVisibility()) return;
     show(cartDialog); render();
     try { await loadCatalog(); }
     catch (error) { message(error.message, true); }
@@ -1169,9 +1176,12 @@
     const query = params.toString();
     window.history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
   }
+  window.addEventListener('hashchange', syncBasketVisibility);
+  syncBasketVisibility();
   render();
   checkReturn();
 })();
+
 
 </script>
 </body>
